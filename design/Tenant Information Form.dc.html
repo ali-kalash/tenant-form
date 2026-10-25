@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#11502C}
+a:hover{color:#C5A16F}
+input{font-family:'Barlow',Helvetica,sans-serif;font-size:10.5pt;color:#11502C;background:transparent;border:0;outline:0;width:100%;padding:4px 6px;box-sizing:border-box}
+input::placeholder{color:#B9B9B9;font-style:italic}
+input:focus{background:rgba(197,161,111,0.10)}
+@media print{input{background:transparent!important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" style="box-sizing:border-box;height:100%;padding:14mm 15mm 11mm;background:#F2F2F2;font-family:'Barlow',Helvetica,sans-serif;color:#2A2A2A;display:flex;flex-direction:column;gap:6mm">
+
+  <header style="display:flex;align-items:flex-start;justify-content:space-between;gap:10mm">
+    <div>
+      <div style="font-family:'EB Garamond',Garamond,serif;font-size:19pt;line-height:1.12;color:#11502C;letter-spacing:0.01em">Middle East Properties Global<br /><span style="font-size:13pt;letter-spacing:0.06em">S.P.C</span></div>
+      <div style="margin-top:2mm;font-size:8pt;letter-spacing:0.16em;text-transform:uppercase;color:#7C7C7C">Real Estate Brokerage · Muscat</div>
+    </div>
+    <img src="./logo-mep.png" alt="Middle East Properties Global S.P.C" style="height:68px;width:auto;flex:none;display:block" />
+  </header>
+
+  <div style="height:1px;background:#C5A16F;margin-top:-2mm"></div>
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm">
+    <h1 style="margin:0;font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:20pt;color:#11502C;letter-spacing:0.10em;text-transform:uppercase">Tenant Information Form</h1>
+    <div style="display:flex;gap:7mm;flex:none">
+      <div style="display:flex;align-items:baseline;gap:2mm"><span style="font-size:9pt;color:#555;white-space:nowrap">P- Ref:</span><span style="display:block;width:30mm;border-bottom:1px solid #C5A16F"><input name="property_reference" title="P- Ref" placeholder=" " /></span></div>
+      <div style="display:flex;align-items:baseline;gap:2mm"><span style="font-size:9pt;color:#555;white-space:nowrap">B- No.:</span><span style="display:block;width:26mm;border-bottom:1px solid #C5A16F"><input name="building_no" title="B- No." placeholder=" " /></span></div>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-family:'EB Garamond',Garamond,serif;font-size:13pt;color:#11502C;margin-bottom:2.5mm">Tenant Details:</div>
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;font-size:10pt">
+      <thead>
+        <tr>
+          <th style="width:44%;text-align:left;background:#11502C;color:#fff;font-weight:500;font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;padding:2.6mm 3mm">Item</th>
+          <th style="text-align:left;background:#11502C;color:#fff;font-weight:500;font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;padding:2.6mm 3mm">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333">Full Name</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm"><input name="full_name" title="Full Name" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333;background:#EAEAEA">Email address</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm;background:#EAEAEA"><input name="email" title="Email address" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333">Nationality</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm"><input name="nationality" title="Nationality" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333;background:#EAEAEA">Work at</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm;background:#EAEAEA"><input name="work_at" title="Work at" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333">In position of</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm"><input name="position" title="In position of" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333;background:#EAEAEA">A family of (Number)</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm;background:#EAEAEA"><input name="family_size" title="A family of (Number)" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333">Rental amount agreed upon</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm"><input name="rental_amount" title="Rental amount agreed upon" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333;background:#EAEAEA">Payment method</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm;background:#EAEAEA"><input name="payment_method" title="Payment method" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333">Security payment</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm"><input name="security_payment" title="Security payment" placeholder=" " /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333;background:#EAEAEA">Contract start date</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm;background:#EAEAEA"><input name="contract_start_date" title="Contract start date" placeholder="DD / MM / YYYY" /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333">Potential move-in date</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm"><input name="potential_move_in_date" title="Potential move-in date" placeholder="DD / MM / YYYY" /></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #D5D5D5;padding:1.6mm 3mm;color:#333;background:#EAEAEA">Agent fee (%)</td>
+          <td style="border:1px solid #D5D5D5;padding:0.6mm 1.5mm;background:#EAEAEA"><input name="agent_fee" title="Agent fee (%)" placeholder=" " /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <div style="font-family:'EB Garamond',Garamond,serif;font-size:13pt;color:#11502C;margin-bottom:3mm">Tenant&rsquo;s Note &amp; Feedback:</div>
+    <div style="display:flex;flex-direction:column;gap:5mm">
+      <div style="border-bottom:1px solid #C5A16F"><input name="tenant_note_1" title="Tenant's note (line 1)" placeholder=" " /></div>
+      <div style="border-bottom:1px solid #C5A16F"><input name="tenant_note_2" title="Tenant's note (line 2)" placeholder=" " /></div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10mm">
+    <p style="margin:0;font-size:9.5pt;color:#3A3A3A">The tenant confirmed the accuracy of the above data and agreed to it.</p>
+    <div style="display:flex;align-items:baseline;gap:2mm;flex:none"><span style="font-size:9.5pt;color:#11502C">Agency:</span><span style="display:block;width:52mm;border-bottom:1px solid #C5A16F"><input name="agency" title="Agency" placeholder=" " /></span></div>
+  </div>
+
+  <div style="border:1px solid #C5A16F;border-left:3px solid #11502C;background:#EDF2EE;padding:3.5mm 4mm;font-size:9.5pt;color:#11502C;line-height:1.5">
+    Please attach a copy of your ID or Resident card &mdash; the form is not ready to be sent to the owner without it.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12mm;margin-top:1mm">
+    <div>
+      <div style="border-bottom:1px solid #11502C"><input name="tenant_signature" title="Tenant Signature" placeholder=" " style="font-size:12pt" /></div>
+      <div style="margin-top:1.6mm;font-size:8.5pt;letter-spacing:0.08em;text-transform:uppercase;color:#11502C">Tenant Signature</div>
+      <div style="margin-top:0.8mm;font-size:8pt;font-style:italic;color:#7C7C7C">Type your full name above &mdash; it counts as your signature.</div>
+    </div>
+    <div>
+      <div style="border-bottom:1px solid #11502C"><input name="tenant_date" title="Date" placeholder="DD / MM / YYYY" style="font-size:12pt" /></div>
+      <div style="margin-top:1.6mm;font-size:8.5pt;letter-spacing:0.08em;text-transform:uppercase;color:#11502C">Date</div>
+      <div style="margin-top:0.8mm;font-size:8pt;font-style:italic;color:#7C7C7C">DD / MM / YYYY</div>
+    </div>
+  </div>
+
+  <footer style="margin-top:auto">
+    <div style="height:1px;background:#C5A16F"></div>
+    <p style="margin:2.5mm 0 0;text-align:center;font-size:7.5pt;color:#8A8A8A;letter-spacing:0.04em">Bousher &ndash; Muscat &ndash; Sultanate of Oman - P.O.Box: 434 - PC: 320 &nbsp;|&nbsp; alikalach@outlook.com</p>
+  </footer>
+
+</section>
+</doc-page>
+</x-dc>
+</body>
+</html>

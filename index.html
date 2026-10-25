@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#11502C">
+<title>Tenant Information Form – Middle East Properties Global</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Amiri:wght@400;700&family=Noto+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="page">
+
+  <div class="toolbar">
+    <button type="button" id="lang-toggle" class="lang-toggle" lang="ar">العربية</button>
+  </div>
+
+  <header class="masthead">
+    <div class="brand">
+      <div class="brand-name" dir="ltr">Middle East Properties Global<br><span>S.P.C</span></div>
+      <div class="brand-tag" data-i18n="tagline">Real Estate Brokerage · Muscat</div>
+    </div>
+    <img class="logo" src="assets/logo.png" alt="Middle East Properties Global S.P.C">
+  </header>
+
+  <div class="rule-gold"></div>
+
+  <div class="title-row">
+    <h1 data-i18n="title">Tenant Information Form</h1>
+    <div class="refs">
+      <div class="ref"><span class="ref-label" data-i18n="pref">P- Ref:</span><span class="ref-value" id="v-pref" dir="ltr">…</span></div>
+      <div class="ref"><span class="ref-label" data-i18n="bno">B- No.:</span><span class="ref-value" id="v-bno" dir="ltr">…</span></div>
+    </div>
+  </div>
+
+  <!-- Shown instead of the form while loading, or when the link is invalid -->
+  <div id="status-panel" class="panel" role="status" aria-live="polite">
+    <p id="status-text" data-i18n="loading">Loading property details…</p>
+  </div>
+
+  <form id="tenant-form" novalidate hidden>
+
+    <section>
+      <h2 class="section-title" data-i18n="detailsTitle">Tenant Details:</h2>
+      <div class="table">
+        <div class="thead">
+          <div data-i18n="colItem">Item</div>
+          <div data-i18n="colDetails">Details</div>
+        </div>
+
+        <div class="tr">
+          <label class="td-label" for="full_name" data-i18n="full_name">Full Name</label>
+          <div class="td-field"><input id="full_name" name="full_name" type="text" autocomplete="name" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="email"><span data-i18n="email">Email address</span> <span class="opt" data-i18n="optional">(optional)</span></label>
+          <div class="td-field"><input id="email" name="email" type="email" autocomplete="email" inputmode="email" dir="ltr" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="nationality" data-i18n="nationality">Nationality</label>
+          <div class="td-field"><input id="nationality" name="nationality" type="text" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="work_at" data-i18n="work_at">Work at</label>
+          <div class="td-field"><input id="work_at" name="work_at" type="text" autocomplete="organization" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="position" data-i18n="position">In position of</label>
+          <div class="td-field"><input id="position" name="position" type="text" autocomplete="organization-title" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="family_size" data-i18n="family_size">A family of (Number)</label>
+          <div class="td-field"><input id="family_size" name="family_size" type="text" inputmode="numeric" maxlength="2" dir="ltr"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="rental_amount" data-i18n="rental_amount">Rental amount agreed upon</label>
+          <div class="td-field"><input id="rental_amount" name="rental_amount" type="text" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="payment_method" data-i18n="payment_method">Payment method</label>
+          <div class="td-field"><input id="payment_method" name="payment_method" type="text" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="security_payment" data-i18n="security_payment">Security payment</label>
+          <div class="td-field"><input id="security_payment" name="security_payment" type="text" dir="auto" maxlength="200"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="contract_start_date" data-i18n="contract_start_date">Contract start date</label>
+          <div class="td-field"><input id="contract_start_date" name="contract_start_date" type="date"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <label class="td-label" for="potential_move_in_date" data-i18n="potential_move_in_date">Potential move-in date</label>
+          <div class="td-field"><input id="potential_move_in_date" name="potential_move_in_date" type="date"><p class="err"></p></div>
+        </div>
+        <div class="tr">
+          <div class="td-label" data-i18n="agent_fee">Agent fee (%)</div>
+          <div class="td-field"><span class="readonly" id="v-fee" dir="ltr">…</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><label for="tenant_note"><span data-i18n="noteTitle">Tenant’s Note &amp; Feedback:</span> <span class="opt" data-i18n="optional">(optional)</span></label></h2>
+      <textarea id="tenant_note" dir="auto" name="tenant_note" rows="3" maxlength="1000"></textarea>
+    </section>
+
+    <div class="confirm">
+      <label class="check">
+        <input id="confirmed" name="confirmed" type="checkbox">
+        <span data-i18n="confirm">The tenant confirmed the accuracy of the above data and agreed to it.</span>
+      </label>
+      <p class="err" id="err-confirmed"></p>
+    </div>
+
+    <div class="sign">
+      <div class="sign-col">
+        <input id="tenant_signature" name="tenant_signature" type="text" class="sign-input" autocomplete="name" dir="auto" maxlength="200" aria-describedby="sig-hint">
+        <label class="sign-label" for="tenant_signature" data-i18n="signature">Tenant Signature</label>
+        <p class="hint" id="sig-hint" data-i18n="signatureHint">Type your full name above — it counts as your signature.</p>
+        <p class="err"></p>
+      </div>
+      <div class="sign-col">
+        <input id="tenant_date" name="tenant_date" type="date" class="sign-input">
+        <label class="sign-label" for="tenant_date" data-i18n="date">Date</label>
+        <p class="err"></p>
+      </div>
+    </div>
+
+    <!-- Hidden from people; bots tend to fill it -->
+    <div class="hp" aria-hidden="true">
+      <label for="website">Website</label>
+      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+
+    <p id="form-error" class="form-error" role="alert" hidden></p>
+
+    <button id="send" type="submit" class="send" data-i18n="send">Send</button>
+  </form>
+
+  <div id="success-panel" class="panel panel-success" role="status" aria-live="polite" hidden>
+    <p class="success-title" data-i18n="successTitle">Thank you!</p>
+    <p data-i18n="successText">Your information has been received successfully.</p>
+  </div>
+
+  <footer class="foot">
+    <div class="rule-gold"></div>
+    <p><span data-i18n="footer">Bousher – Muscat – Sultanate of Oman - P.O.Box: 434 - PC: 320</span><span class="sep"> | </span><a href="mailto:alikalach@outlook.com" dir="ltr">alikalach@outlook.com</a></p>
+  </footer>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>
