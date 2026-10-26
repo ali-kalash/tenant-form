@@ -48,6 +48,7 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
       errEmail: "Please enter a valid email address.",
       errNumber: "Please enter a number (e.g. 4).",
       errConfirm: "Please confirm that the data is accurate.",
+      errFuture: "The date can’t be in the future.",
       errSummary: "Please correct the fields marked in red.",
       errSend: "The form was not sent. Please try again.",
       langButton: "العربية"
@@ -91,6 +92,7 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
       errEmail: "صيغة البريد الإلكتروني غير صحيحة.",
       errNumber: "اكتب رقماً (مثلاً 4).",
       errConfirm: "يرجى تأكيد صحة البيانات.",
+      errFuture: "لا يمكن أن يكون التاريخ في المستقبل.",
       errSummary: "يرجى تصحيح الحقول المظللة بالأحمر.",
       errSend: "لم يتم الإرسال. يرجى المحاولة مرة أخرى.",
       langButton: "English"
@@ -110,6 +112,7 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
   ];
   const KEY_PATTERN = /^[A-Za-z0-9]{12,32}$/;
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const HONEYPOT = "mep_xq_alt7"; // hidden field, must match Code.gs
 
   const $ = (id) => document.getElementById(id);
   const form = $("tenant-form");
@@ -197,13 +200,19 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
   // ---------- Validation ----------
   function value(id) { return $(id).value.trim(); }
 
+  // Arabic-Indic digits (٠-٩ and ۰-۹) → 0-9
+  function toWesternDigits(s) {
+    return s.replace(/[\u0660-\u0669\u06F0-\u06F9]/g, (d) => String(d.charCodeAt(0) & 0xf));
+  }
+
   function validate() {
     errors = {};
     REQUIRED_TEXT.concat(REQUIRED_DATES).forEach((id) => {
       if (!value(id)) errors[id] = "errRequired";
     });
     if (value("email") && !EMAIL_PATTERN.test(value("email"))) errors.email = "errEmail";
-    if (value("family_size") && !/^[1-9][0-9]?$/.test(value("family_size"))) errors.family_size = "errNumber";
+    if (value("family_size") && !/^[1-9][0-9]?$/.test(toWesternDigits(value("family_size")))) errors.family_size = "errNumber";
+    if (value("tenant_date") && value("tenant_date") > todayISO()) errors.tenant_date = "errFuture";
     if (!$("confirmed").checked) errors.confirmed = "errConfirm";
     renderErrors();
     return Object.keys(errors).length === 0;
@@ -264,11 +273,12 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
       k: key,
       id: submissionId,
       lang: lang,
-      website: $("website").value,
+      [HONEYPOT]: $(HONEYPOT).value,
       confirmed: true
     };
     ALL_FIELDS.forEach((id) => { payload[id] = value(id); });
     REQUIRED_DATES.forEach((id) => { payload[id] = toDMY(value(id)); });
+    payload.family_size = toWesternDigits(payload.family_size);
 
     sending = true;
     sendBtn.disabled = true;
@@ -276,6 +286,7 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
     renderErrors();
 
     let ok = false;
+    let result = "";
     try {
       const data = await fetchJson(SCRIPT_URL, {
         method: "POST",
@@ -283,7 +294,8 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
-      ok = !!data && data.result === "success";
+      result = data && data.result;
+      ok = result === "success";
     } catch (e) {
       ok = false;
     }
@@ -295,6 +307,7 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
       successPanel.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    if (result === "invalid_link") return showStatus("invalidLink", true);
     sendBtn.disabled = false;
     sendBtn.textContent = t("send");
     sendFailed = true;
@@ -303,6 +316,7 @@ const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
 
   // ---------- Start ----------
   $("tenant_date").value = todayISO();
+  $("tenant_date").max = todayISO();
   applyLanguage();
   loadProperty();
 })();
