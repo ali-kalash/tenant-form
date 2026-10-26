@@ -2,7 +2,7 @@
 //  Paste your Google Apps Script Web App link between the quotes.
 //  ضع رابط Google Apps Script بين علامتي التنصيص.
 // ============================================================
-const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVKyUvSa2CtZHPWGdkJHfyI8qT4jzOKTHFKNvzKMyU9Mk2JHkd/exec";
 // ============================================================
 
 (function () {
