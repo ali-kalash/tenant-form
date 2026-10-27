@@ -371,6 +371,22 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
     $("pc-date").textContent = v.tenant_date;
   }
 
+  // Tallest copy that still fits one page on the tightest paper: Letter (279mm)
+  // with 25mm margins and the browser's header and footer.
+  const FIT_HEIGHT_MM = 205;
+
+  // Measures the copy at the narrowest printable width; if it is too tall
+  // (very long answers), shrinks it so it always prints on one page.
+  function fitCopyToPage() {
+    const el = $("print-copy");
+    el.style.zoom = "";
+    el.classList.add("measuring");
+    const box = el.getBoundingClientRect();
+    el.classList.remove("measuring");
+    const heightMm = box.height * (160 / box.width);
+    if (heightMm > FIT_HEIGHT_MM) el.style.zoom = (FIT_HEIGHT_MM / heightMm).toFixed(3);
+  }
+
   function showThanks() {
     pdfDialog.hidden = true;
     successPanel.hidden = false;
@@ -380,6 +396,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
   $("pdf-yes").addEventListener("click", () => {
     pdfDialog.hidden = true;
     fillCopy();
+    fitCopyToPage();
     window.print();
     showThanks();
   });
