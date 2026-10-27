@@ -49,6 +49,12 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
       errNumber: "Please enter a number (e.g. 4).",
       errConfirm: "Please confirm that the data is accurate.",
       errFuture: "The date can’t be in the future.",
+      pdfQuestion: "Would you like to save a PDF copy of your information?",
+      pdfHelp: "Yes opens the print option — choose “Save as PDF” or “Save to Files”.",
+      yes: "Yes",
+      no: "No",
+      refNo: "Reference No.:",
+      submitted: "Submitted:",
       errSummary: "Please correct the fields marked in red.",
       errSend: "The form was not sent. Please try again.",
       langButton: "العربية"
@@ -93,6 +99,12 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
       errNumber: "اكتب رقماً (مثلاً 4).",
       errConfirm: "يرجى تأكيد صحة البيانات.",
       errFuture: "لا يمكن أن يكون التاريخ في المستقبل.",
+      pdfQuestion: "هل تريد حفظ نسخة PDF من بياناتك؟",
+      pdfHelp: "زر نعم يفتح خيار الطباعة، ثم اختر منه Save as PDF أو Save to Files.",
+      yes: "نعم",
+      no: "لا",
+      refNo: "الرقم المرجعي:",
+      submitted: "تاريخ الإرسال:",
       errSummary: "يرجى تصحيح الحقول المظللة بالأحمر.",
       errSend: "لم يتم الإرسال. يرجى المحاولة مرة أخرى.",
       langButton: "English"
@@ -121,6 +133,14 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
   const successPanel = $("success-panel");
   const sendBtn = $("send");
   const formError = $("form-error");
+  const pdfDialog = $("pdf-dialog");
+
+  // Rows of the printed tenant copy, in table order (Agent fee included)
+  const COPY_ROWS = [
+    "full_name", "email", "nationality", "work_at", "position", "family_size",
+    "rental_amount", "payment_method", "security_payment",
+    "contract_start_date", "potential_move_in_date", "agent_fee"
+  ];
 
   let lang = "en";
   let statusKey = "loading";
@@ -128,6 +148,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
   let attempted = false;
   let sending = false;
   let sendFailed = false;
+  let copy = null;          // what the printed tenant copy shows, set after a successful send
   const key = new URLSearchParams(location.search).get("k") || "";
   const submissionId = newId();
 
@@ -146,6 +167,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
     statusText.textContent = t(statusKey);
     if (sending) sendBtn.textContent = t("sending");
     renderErrors();
+    if (copy) fillCopy();
   }
 
   $("lang-toggle").addEventListener("click", () => {
@@ -287,6 +309,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
 
     let ok = false;
     let result = "";
+    let reply = null;
     try {
       const data = await fetchJson(SCRIPT_URL, {
         method: "POST",
@@ -294,6 +317,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
+      reply = data;
       result = data && data.result;
       ok = result === "success";
     } catch (e) {
@@ -303,8 +327,17 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
     sending = false;
     if (ok) {
       form.hidden = true;
-      successPanel.hidden = false;
-      successPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+      copy = {
+        values: payload,
+        fee: $("v-fee").textContent,
+        pref: $("v-pref").textContent,
+        bno: $("v-bno").textContent,
+        ref: String(reply.ref || ""),
+        time: String(reply.time || "")
+      };
+      fillCopy();
+      pdfDialog.hidden = false;
+      $("pdf-yes").focus();
       return;
     }
     if (result === "invalid_link") return showStatus("invalidLink", true);
@@ -313,6 +346,44 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxej4rJhU8oq4kT2gxVK
     sendFailed = true;
     renderErrors();
   });
+
+  // ---------- PDF copy for the tenant ----------
+  function fillCopy() {
+    const v = copy.values;
+    $("pc-pref").textContent = copy.pref;
+    $("pc-bno").textContent = copy.bno;
+    $("pc-ref").textContent = copy.ref || "—";
+    $("pc-time").textContent = copy.time || "—";
+    const body = $("pc-rows");
+    body.textContent = "";
+    COPY_ROWS.forEach((id) => {
+      const tr = document.createElement("tr");
+      const label = document.createElement("td");
+      const val = document.createElement("td");
+      label.textContent = t(id);
+      val.textContent = (id === "agent_fee" ? copy.fee : v[id]) || "—";
+      val.dir = "auto";
+      tr.append(label, val);
+      body.append(tr);
+    });
+    $("pc-note").textContent = v.tenant_note || "—";
+    $("pc-signature").textContent = v.tenant_signature;
+    $("pc-date").textContent = v.tenant_date;
+  }
+
+  function showThanks() {
+    pdfDialog.hidden = true;
+    successPanel.hidden = false;
+    successPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  $("pdf-yes").addEventListener("click", () => {
+    pdfDialog.hidden = true;
+    fillCopy();
+    window.print();
+    showThanks();
+  });
+  $("pdf-no").addEventListener("click", showThanks);
 
   // ---------- Start ----------
   $("tenant_date").value = todayISO();

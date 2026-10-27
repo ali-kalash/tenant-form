@@ -152,6 +152,59 @@
   </footer>
 
 </main>
+
+<!-- Asked once, after the Script confirms the row was saved -->
+<div id="pdf-dialog" class="modal-backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pdf-q" aria-describedby="pdf-help">
+    <p id="pdf-q" class="modal-title" data-i18n="pdfQuestion">Would you like to save a PDF copy of your information?</p>
+    <p id="pdf-help" class="modal-help" data-i18n="pdfHelp">Yes opens the print option — choose “Save as PDF” or “Save to Files”.</p>
+    <div class="modal-actions">
+      <button type="button" id="pdf-yes" class="send" data-i18n="yes">Yes</button>
+      <button type="button" id="pdf-no" class="btn-secondary" data-i18n="no">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tenant copy: filled in after a successful send, shown only when printing -->
+<article id="print-copy" class="print-copy" aria-hidden="true">
+  <header class="masthead">
+    <div class="brand">
+      <div class="brand-name" dir="ltr">Middle East Properties Global<br><span>S.P.C</span></div>
+      <div class="brand-tag" data-i18n="tagline">Real Estate Brokerage · Muscat</div>
+    </div>
+    <img class="logo" src="assets/logo.png" alt="">
+  </header>
+  <div class="rule-gold"></div>
+  <h1 data-i18n="title">Tenant Information Form</h1>
+  <div class="pc-meta">
+    <div><span data-i18n="pref">P- Ref:</span> <b id="pc-pref" dir="ltr"></b>&emsp;<span data-i18n="bno">B- No.:</span> <b id="pc-bno" dir="ltr"></b></div>
+    <div><span data-i18n="refNo">Reference No.:</span> <b id="pc-ref" dir="ltr"></b>&emsp;<span data-i18n="submitted">Submitted:</span> <b id="pc-time" dir="ltr"></b></div>
+  </div>
+  <h2 class="section-title" data-i18n="detailsTitle">Tenant Details:</h2>
+  <table class="pc-table">
+    <thead><tr><th data-i18n="colItem">Item</th><th data-i18n="colDetails">Details</th></tr></thead>
+    <tbody id="pc-rows"></tbody>
+  </table>
+  <h2 class="section-title" data-i18n="noteTitle">Tenant’s Note &amp; Feedback:</h2>
+  <p id="pc-note" class="pc-note" dir="auto"></p>
+  <p class="pc-confirm">&#9745; <span data-i18n="confirm">The tenant confirmed the accuracy of the above data and agreed to it.</span></p>
+  <div class="pc-sign">
+    <div>
+      <p id="pc-signature" class="pc-line" dir="auto"></p>
+      <p class="sign-label" data-i18n="signature">Tenant Signature</p>
+      <p class="hint" data-i18n="signatureHint">Type your full name above — it counts as your signature.</p>
+    </div>
+    <div>
+      <p id="pc-date" class="pc-line" dir="ltr"></p>
+      <p class="sign-label" data-i18n="date">Date</p>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="rule-gold"></div>
+    <p><span data-i18n="footer">Bousher – Muscat – Sultanate of Oman - P.O.Box: 434 - PC: 320</span> | <span dir="ltr">alikalach@outlook.com</span></p>
+  </footer>
+</article>
+
 <script src="app.js"></script>
 </body>
 </html>
